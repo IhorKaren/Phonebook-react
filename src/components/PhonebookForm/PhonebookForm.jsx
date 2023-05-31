@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
@@ -51,12 +50,4 @@ const PhonebookForm = ({ addContact }) => {
   );
 };
 
-PhonebookForm.propTypes = {
-  addContact: PropTypes.func.isRequired,
-};
-
 export default PhonebookForm;
-
-PhonebookForm.propTypes = {
-  addContact: PropTypes.func.isRequired,
-};
