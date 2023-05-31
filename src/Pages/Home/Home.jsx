@@ -8,7 +8,7 @@ import { getContacts } from 'Redux/Contacts/contactsSlice';
 import { fetchContacts, addContact } from 'Redux/Operations/operations';
 import { MainTitle, SecondTitle } from 'components/Container/Container.styled';
 
-export function Home() {
+const Home = () => {
   const dispatch = useDispatch();
 
   const contacts = useSelector(getContacts);
@@ -60,4 +60,6 @@ export function Home() {
       )}
     </>
   );
-}
+};
+
+export default Home;
