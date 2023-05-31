@@ -9,7 +9,6 @@ import { Header, Nav, Link } from './Layout.styled';
 const Layout = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(isLogin);
-  console.log(isLoggedIn);
 
   const hadleLogOutClick = () => dispatch(logOut());
 

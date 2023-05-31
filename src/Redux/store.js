@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import {
   persistStore,
@@ -8,21 +9,24 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import { contactsReducer } from './Contacts/contactsSlice';
+import { contactsApi } from './Contacts/contactsApi';
 import { filterReducer } from './Filter/filterSlice';
 import { authReducer } from './Auth/slice';
+
+const ignoredActions = [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER];
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
-    contacts: contactsReducer,
+    [contactsApi.reducerPath]: contactsApi.reducer,
     filter: filterReducer,
   },
-  middleware: getDefaultMiddleware({
-    serializableCheck: {
-      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-    },
-  }),
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions,
+      },
+    }).concat(contactsApi.middleware),
 });
 
 export const persistor = persistStore(store);
