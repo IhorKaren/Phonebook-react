@@ -9,7 +9,7 @@ const ContactsItem = ({ el }) => {
   return (
     <ContactItem>
       <ContactName>
-        {el.name}: {el.phone}
+        {el.name}: {el.number}
       </ContactName>
       <ContactButton
         type="button"

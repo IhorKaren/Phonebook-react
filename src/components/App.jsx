@@ -1,5 +1,7 @@
-import React from 'react';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
+import { refreshUser } from 'Redux/Auth/operations';
 import { Container } from './Container/Container.styled';
 import Layout from './Layout/Layout';
 import { Home } from 'Pages/Home/Home';
@@ -7,6 +9,12 @@ import LoginForm from 'Pages/Login/Login';
 import RegisterForm from 'Pages/Register/Register';
 
 export function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+
   return (
     <Container>
       <Routes>

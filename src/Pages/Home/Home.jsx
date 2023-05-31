@@ -6,10 +6,7 @@ import Contacts from 'components/Contacts/Contacts';
 import { filter, getFilter } from 'Redux/Filter/filterSlice';
 import { getContacts } from 'Redux/Contacts/contactsSlice';
 import { fetchContacts, addContact } from 'Redux/Operations/operations';
-import {
-  MainTitle,
-  SecondTitle,
-} from 'components/Container/Container.styled';
+import { MainTitle, SecondTitle } from 'components/Container/Container.styled';
 
 export function Home() {
   const dispatch = useDispatch();
