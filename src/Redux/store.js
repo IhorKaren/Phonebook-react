@@ -11,7 +11,7 @@ import {
 } from 'redux-persist';
 import { contactsApi } from './Contacts/contactsApi';
 import { filterReducer } from './Filter/filterSlice';
-import { authReducer } from './Auth/slice';
+import { authReducer } from './Auth/authSlice';
 
 const ignoredActions = [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER];
 

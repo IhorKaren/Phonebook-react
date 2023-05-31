@@ -52,7 +52,3 @@ const authSlice = createSlice({
 });
 
 export const authReducer = persistReducer(persistConfig, authSlice.reducer);
-
-export const isLogin = state => state.auth.isLoggedIn;
-
-export const isRefresh = state => state.auth.isRefreshing;

@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { isLogin } from 'Redux/Auth/slice';
+import { isLogin } from 'Redux/Selectors/selectors';
 import { logOut } from 'Redux/Auth/operations';
 import { Outlet } from 'react-router-dom';
 import Loader from 'components/Loader/Loader';

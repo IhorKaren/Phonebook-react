@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import { refreshUser } from 'Redux/Auth/operations';
-import { isRefresh } from 'Redux/Auth/slice';
+import { isRefresh } from 'Redux/Selectors/selectors';
 import { Container } from './Container/Container.styled';
 import RestrictedRoute from './Routes/RestrictedRoute';
 import PrivateRoute from './Routes/PrivateRoute';
