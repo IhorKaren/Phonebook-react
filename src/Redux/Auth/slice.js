@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import persistReducer from 'redux-persist/es/persistReducer';
 import storage from 'redux-persist/lib/storage';
-import { registerUser, logIn, logOut, refreshUser } from './operations';
+import { registerUser, logIn, refreshUser, logOut } from './operations';
 
 const persistConfig = {
   key: 'contacts',
@@ -50,3 +50,4 @@ const authSlice = createSlice({
 });
 
 export const authReducer = persistReducer(persistConfig, authSlice.reducer);
+// export const authReducer = authSlice.reducer

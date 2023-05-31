@@ -32,6 +32,8 @@ const RegisterForm = () => {
       email: data.email,
       password: data.password,
     };
+
+    console.log(newUser);
     dispatch(registerUser(newUser));
     reset();
   };
