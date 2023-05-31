@@ -1,9 +1,4 @@
-import axios from 'axios';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
-const setAuthHeader = token => {
-  axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-};
 
 export const contactsApi = createApi({
   reducerPath: 'contactsApi',
@@ -12,9 +7,9 @@ export const contactsApi = createApi({
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.token;
 
+      // If we have a token set in state, let's assume that we should be passing it.
       if (token) {
-        setAuthHeader(token);
-        headers.set('Authorization', `Bearer ${token}`);
+        headers.set('authorization', `Bearer ${token}`);
       }
 
       return headers;
