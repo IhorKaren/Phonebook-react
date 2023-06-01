@@ -1,6 +1,4 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { CssVarsProvider } from '@mui/joy/styles';
 import GlobalStyle from 'components/GlobalStyles/GlobalStyles';
 import Box from '@mui/joy/Box';
@@ -8,13 +6,16 @@ import {
   useGetContactsQuery,
   useAddContactMutation,
 } from 'Redux/Contacts/contactsApi';
+import { filter, getFilter } from 'Redux/Filter/filterSlice';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// 
 import Sidebar from 'components/SideBar/SideBar';
 import Header from 'components/Header/Header';
 import Main from 'components/Main/Main';
 import FilterForm from 'components/Filter/Filter';
 import PhonebookForm from 'components/PhonebookForm/PhonebookForm';
 import Contacts from 'components/Contacts/Contacts';
-import { filter, getFilter } from 'Redux/Filter/filterSlice';
 import { MainTitle } from 'components/Container/Container.styled';
 import theme from 'components/Theme/Theme';
 

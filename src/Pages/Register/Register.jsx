@@ -1,19 +1,20 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { authError } from 'Redux/Selectors/selectors';
-import { registerUser } from '../../Redux/Auth/operations';
+import { Link as RouterLink } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
+import { authError } from 'Redux/Selectors/selectors';
+import { registerUser } from '../../Redux/Auth/operations';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+// 
 import Button from '@mui/joy/Button';
 import FormLabel from '@mui/joy/FormLabel';
 import { Link } from '@mui/joy';
 import Input from '@mui/joy/Input';
 import Typography from '@mui/joy/Typography';
 import JoySignInSideTemplate from 'components/JoySignInSideTemplate/JoySignInSideTemplate';
-import { Link as RouterLink } from 'react-router-dom';
 import { Thumb, StyledText } from './Register.styled';
 
 const schema = Yup.object().shape({
@@ -112,7 +113,7 @@ const RegisterForm = () => {
           </Link>
         </Typography>
       </form>
-      <ToastContainer theme="colored" position="top-left"/>
+      <ToastContainer theme="colored" position="top-left" />
     </JoySignInSideTemplate>
   );
 };
