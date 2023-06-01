@@ -1,17 +1,26 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../Redux/Auth/operations';
-// import { yupResolver } from '@hookform/resolvers/yup';
-// import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
+import Button from '@mui/joy/Button';
+import FormLabel from '@mui/joy/FormLabel';
+import { Link } from '@mui/joy';
+import Input from '@mui/joy/Input';
+import Typography from '@mui/joy/Typography';
+import JoySignInSideTemplate from 'components/JoySignInSideTemplate/JoySignInSideTemplate';
+import { Link as RouterLink } from 'react-router-dom';
+import { Thumb, StyledText } from './Register.styled';
 
-// const schema = Yup.object().shape({
-//   name: Yup.string().required('Name is required!'),
-//   number: Yup.string()
-//     .required('Number is required!')
-//     .min(7, 'Number must be at least 7 digits')
-//     .max(16, 'Number must not exceed 16 digits'),
-// });
+const schema = Yup.object().shape({
+  name: Yup.string().required('Name is required!'),
+  email: Yup.string().required('Email is required!'),
+  password: Yup.string()
+    .required('Password is required!')
+    .min(5, 'Password must be at least 5 digits')
+    .max(12, 'Password must not exceed 12 digits'),
+});
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -21,10 +30,9 @@ const RegisterForm = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
-  //   {
-  //     resolver: yupResolver(schema),
-  //   }
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const onSubmit = (data, e) => {
     const newUser = {
@@ -39,24 +47,46 @@ const RegisterForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label htmlFor="name">Name:</label>
-        <input type="text" id="name" {...register('name')} />
-        {errors.name && <div>{errors.name?.message}</div>}
-      </div>
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input type="email" id="email" {...register('email')} />
-        {errors.email && <div>{errors.email?.message}</div>}
-      </div>
-      <div>
-        <label htmlFor="password">Password:</label>
-        <input type="password" id="password" {...register('password')} />
-        {errors.password && <div>{errors.password?.message}</div>}
-      </div>
-      <button type="submit">Register</button>
-    </form>
+    <JoySignInSideTemplate>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Thumb>
+          <FormLabel htmlFor="name">Name:</FormLabel>
+          <Input type="text" id="name" {...register('name')} />
+          {errors.name && (
+            <StyledText color="danger" fontSize="sm">
+              {errors.name?.message}
+            </StyledText>
+          )}
+        </Thumb>
+        <Thumb>
+          <FormLabel htmlFor="email">Email:</FormLabel>
+          <Input type="email" id="email" {...register('email')} />
+          {errors.email && (
+            <StyledText color="danger" fontSize="sm">
+              {errors.email?.message}
+            </StyledText>
+          )}
+        </Thumb>
+        <Thumb>
+          <FormLabel htmlFor="password">Password:</FormLabel>
+          <Input type="password" id="password" {...register('password')} />
+          {errors.password && (
+            <StyledText color="danger" fontSize="sm">
+              {errors.password?.message}
+            </StyledText>
+          )}
+        </Thumb>
+        <Button type="submit" sx={{ marginTop: '10px' }}>
+          Register
+        </Button>
+        <Typography fontSize="md">
+          Are you already registered?
+          <Link component={RouterLink} to="/login" sx={{ marginLeft: '5px' }}>
+            Go to login page.
+          </Link>
+        </Typography>
+      </form>
+    </JoySignInSideTemplate>
   );
 };
 
