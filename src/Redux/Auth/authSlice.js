@@ -12,6 +12,7 @@ const persistConfig = {
 const initialState = {
   user: { name: null, email: null },
   token: null,
+  error: false,
   isLoggedIn: false,
   isRefreshing: false,
 };
@@ -26,11 +27,19 @@ const authSlice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
+        state.error = false;
+      })
+      .addCase(registerUser.rejected, state => {
+        state.error = true;
       })
       .addCase(logIn.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
+        state.error = false;
+      })
+      .addCase(logIn.rejected, state => {
+        state.error = true;
       })
       .addCase(logOut.fulfilled, state => {
         state.user = { name: null, email: null };

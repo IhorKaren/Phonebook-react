@@ -1,4 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { CssVarsProvider } from '@mui/joy/styles';
 import GlobalStyle from 'components/GlobalStyles/GlobalStyles';
 import Box from '@mui/joy/Box';
@@ -31,7 +33,7 @@ const Home = () => {
     );
 
     if (checkName) {
-      return alert(`${name} is already in contacts.`);
+      return toast.error(`${name} is already in contacts.`);
     }
 
     const newContact = {
@@ -76,6 +78,7 @@ const Home = () => {
           )}
         </Main>
       </Box>
+      <ToastContainer theme="colored" />
     </CssVarsProvider>
   );
 };

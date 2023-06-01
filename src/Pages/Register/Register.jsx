@@ -1,5 +1,8 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { authError } from 'Redux/Selectors/selectors';
 import { registerUser } from '../../Redux/Auth/operations';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -24,6 +27,14 @@ const schema = Yup.object().shape({
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
+
+  const loginError = useSelector(authError);
+
+  useEffect(() => {
+    if (loginError) {
+      toast.error(`Error, please try again.`);
+    }
+  }, [loginError]);
 
   const {
     register,
@@ -101,6 +112,7 @@ const RegisterForm = () => {
           </Link>
         </Typography>
       </form>
+      <ToastContainer theme="colored" position="top-left"/>
     </JoySignInSideTemplate>
   );
 };
