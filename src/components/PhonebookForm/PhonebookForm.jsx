@@ -2,13 +2,11 @@ import React from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
-import {
-  StyledLabel,
-  StyledField,
-  Error,
-  StyledButton,
-  StyledForm,
-} from './PhonebookFrom.styled';
+import FormLabel from '@mui/joy/FormLabel';
+import Input from '@mui/joy/Input';
+import Button from '@mui/joy/Button';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import { StyledText, StyledForm } from './PhonebookFrom.styled';
 
 const schema = Yup.object().shape({
   name: Yup.string().required('Name is required!'),
@@ -34,19 +32,41 @@ const PhonebookForm = ({ addContact }) => {
   };
 
   return (
-    <StyledForm onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <StyledLabel htmlFor="name">Name:</StyledLabel>
-        <StyledField type="text" id="name" {...register('name')} />
-        {errors.name && <Error>{errors.name?.message}</Error>}
-      </div>
-      <div>
-        <StyledLabel htmlFor="number">Number:</StyledLabel>
-        <StyledField type="tel" id="number" {...register('number')} />
-        {errors.number && <Error>{errors.number?.message}</Error>}
-      </div>
-      <StyledButton type="submit">Add contact</StyledButton>
-    </StyledForm>
+    <>
+      <StyledForm onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <FormLabel htmlFor="name">Name:</FormLabel>
+          <Input
+            type="text"
+            id="name"
+            {...register('name')}
+            error={errors.name}
+          />
+          {errors.name && (
+            <StyledText color="danger" fontSize="sm">
+              {errors.name?.message}
+            </StyledText>
+          )}
+        </div>
+        <div sx={{ display: 'flex' }}>
+          <FormLabel htmlFor="number">Number:</FormLabel>
+          <Input
+            type="tel"
+            id="number"
+            {...register('number')}
+            error={errors.number}
+          />
+          {errors.number && (
+            <StyledText color="danger" fontSize="sm">
+              {errors.number?.message}
+            </StyledText>
+          )}
+        </div>
+        <Button type="submit" sx={{ height: '40px', mt: 'auto' }}>
+          <PersonAddAltIcon sx={{ mr: '5px' }} /> Add contact
+        </Button>
+      </StyledForm>
+    </>
   );
 };
 

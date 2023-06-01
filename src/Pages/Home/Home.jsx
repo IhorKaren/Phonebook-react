@@ -9,8 +9,8 @@ import {
 import Sidebar from 'components/SideBar/SideBar';
 import Header from 'components/Header/Header';
 import Main from 'components/Main/Main';
-import PhonebookForm from 'components/PhonebookForm/PhonebookForm';
 import FilterForm from 'components/Filter/Filter';
+import PhonebookForm from 'components/PhonebookForm/PhonebookForm';
 import Contacts from 'components/Contacts/Contacts';
 import { filter, getFilter } from 'Redux/Filter/filterSlice';
 import { MainTitle } from 'components/Container/Container.styled';
@@ -62,11 +62,13 @@ const Home = () => {
         <Header />
         <Main>
           <MainTitle>Contacts</MainTitle>
-          <PhonebookForm addContact={addContacts} />
-          <FilterForm
-            label="Find contacts by name"
-            onChange={handleFilterChange}
-          />
+          <Box
+            sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end' }}
+          >
+            <PhonebookForm addContact={addContacts} />
+            <FilterForm onChange={handleFilterChange} />
+          </Box>
+
           {contacts.length === 0 ? (
             <p>You don't have contacts yet</p>
           ) : (
