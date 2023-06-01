@@ -39,7 +39,7 @@ export default function StyledSidebar({ name, email, onClose, onClick }) {
           },
           transition: 'transform 0.4s, width 0.4s',
           zIndex: 10000,
-          height: '95dvh',
+          height: '100dvh',
           width: 'var(--Sidebar-width)',
           top: 0,
           p: 1.5,

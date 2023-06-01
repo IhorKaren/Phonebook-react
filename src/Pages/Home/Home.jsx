@@ -1,4 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
+import { CssVarsProvider } from '@mui/joy/styles';
+import GlobalStyle from 'components/GlobalStyles/GlobalStyles';
 import Box from '@mui/joy/Box';
 import {
   useGetContactsQuery,
@@ -6,11 +8,13 @@ import {
 } from 'Redux/Contacts/contactsApi';
 import Sidebar from 'components/SideBar/SideBar';
 import Header from 'components/Header/Header';
+import Main from 'components/Main/Main';
 import PhonebookForm from 'components/PhonebookForm/PhonebookForm';
 import FilterForm from 'components/Filter/Filter';
 import Contacts from 'components/Contacts/Contacts';
 import { filter, getFilter } from 'Redux/Filter/filterSlice';
-import { MainTitle, SecondTitle } from 'components/Container/Container.styled';
+import { MainTitle } from 'components/Container/Container.styled';
+import theme from 'components/Theme/Theme';
 
 const Home = () => {
   const { data } = useGetContactsQuery();
@@ -51,24 +55,26 @@ const Home = () => {
   const filteredContacts = getFilteredContacts();
 
   return (
-    <>
+    <CssVarsProvider defaultMode="dark" disableTransitionOnChange theme={theme}>
+      <GlobalStyle />
       <Box sx={{ display: 'flex', height: '100dvh' }}>
         <Sidebar />
         <Header />
-        <MainTitle>Phonebook</MainTitle>
-        <PhonebookForm addContact={addContacts} />
-        <SecondTitle>Contacts</SecondTitle>
-        <FilterForm
-          label="Find contacts by name"
-          onChange={handleFilterChange}
-        />
-        {contacts.length === 0 ? (
-          <p>You don't have contacts yet</p>
-        ) : (
-          <Contacts options={filteredContacts} />
-        )}
+        <Main>
+          <MainTitle>Contacts</MainTitle>
+          <PhonebookForm addContact={addContacts} />
+          <FilterForm
+            label="Find contacts by name"
+            onChange={handleFilterChange}
+          />
+          {contacts.length === 0 ? (
+            <p>You don't have contacts yet</p>
+          ) : (
+            <Contacts options={filteredContacts} />
+          )}
+        </Main>
       </Box>
-    </>
+    </CssVarsProvider>
   );
 };
 
