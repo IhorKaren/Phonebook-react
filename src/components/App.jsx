@@ -3,10 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import { refreshUser } from 'Redux/Auth/operations';
 import { isRefresh } from 'Redux/Selectors/selectors';
-// import { Container } from './Container/Container.styled';
 import RestrictedRoute from './Routes/RestrictedRoute';
 import PrivateRoute from './Routes/PrivateRoute';
-import Layout from './Layout/Layout';
 import Home from 'Pages/Home/Home';
 import LoginForm from 'Pages/Login/Login';
 import RegisterForm from 'Pages/Register/Register';
@@ -23,12 +21,11 @@ export function App() {
   return (
     !isRefreshing && (
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route
-            index
-            element={<PrivateRoute component={Home} redirectTo="login" />}
-          />
-        </Route>
+        <Route
+          path="/"
+          index
+          element={<PrivateRoute component={Home} redirectTo="login" />}
+        />
         <Route
           path="login"
           element={<RestrictedRoute component={LoginForm} />}
