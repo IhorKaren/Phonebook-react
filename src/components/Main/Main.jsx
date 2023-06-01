@@ -25,6 +25,7 @@ const Main = ({ children }) => {
         flexDirection: 'column',
         minWidth: 0,
         height: '100dvh',
+        // overflow: 'auto',
         gap: 1,
       })}
     >

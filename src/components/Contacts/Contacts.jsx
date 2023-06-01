@@ -1,14 +1,14 @@
 import ContactItem from 'components/ContactsItem/ContactsItem';
-import List from '@mui/joy/List';
+import { StyledList } from 'components/Contacts/Contacts.styled';
 
 const Contacts = ({ options }) => {
   return (
     <>
-      <List>
+      <StyledList>
         {options.map(el => {
           return <ContactItem key={el.id} el={el} />;
         })}
-      </List>
+      </StyledList>
     </>
   );
 };
