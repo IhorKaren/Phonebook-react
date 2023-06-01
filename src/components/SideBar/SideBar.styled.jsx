@@ -17,8 +17,6 @@ import Sheet from '@mui/joy/Sheet';
 import theme from 'components/Theme/Theme';
 import ColorSchemeToggle from 'components/ColorSchemeToggle';
 
-
-
 const Dropdown = styled('i')(({ theme }) => ({
   color: theme.vars.palette.text.tertiary,
 }));

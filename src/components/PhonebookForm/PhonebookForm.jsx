@@ -32,41 +32,39 @@ const PhonebookForm = ({ addContact }) => {
   };
 
   return (
-    <>
-      <StyledForm onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <FormLabel htmlFor="name">Name:</FormLabel>
-          <Input
-            type="text"
-            id="name"
-            {...register('name')}
-            error={errors.name}
-          />
-          {errors.name && (
-            <StyledText color="danger" fontSize="sm">
-              {errors.name?.message}
-            </StyledText>
-          )}
-        </div>
-        <div sx={{ display: 'flex' }}>
-          <FormLabel htmlFor="number">Number:</FormLabel>
-          <Input
-            type="tel"
-            id="number"
-            {...register('number')}
-            error={errors.number}
-          />
-          {errors.number && (
-            <StyledText color="danger" fontSize="sm">
-              {errors.number?.message}
-            </StyledText>
-          )}
-        </div>
-        <Button type="submit" sx={{ height: '40px', mt: 'auto' }}>
-          <PersonAddAltIcon sx={{ mr: '5px' }} /> Add contact
-        </Button>
-      </StyledForm>
-    </>
+    <StyledForm onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <FormLabel htmlFor="name">Name:</FormLabel>
+        <Input
+          type="text"
+          id="name"
+          {...register('name')}
+          error={errors.name}
+        />
+        {errors.name && (
+          <StyledText color="danger" fontSize="sm">
+            {errors.name?.message}
+          </StyledText>
+        )}
+      </div>
+      <div sx={{ display: 'flex' }}>
+        <FormLabel htmlFor="number">Number:</FormLabel>
+        <Input
+          type="tel"
+          id="number"
+          {...register('number')}
+          error={errors.number}
+        />
+        {errors.number && (
+          <StyledText color="danger" fontSize="sm">
+            {errors.number?.message}
+          </StyledText>
+        )}
+      </div>
+      <Button type="submit" sx={{ height: '40px', mt: 'auto' }}>
+        <PersonAddAltIcon sx={{ mr: '5px' }} /> Add contact
+      </Button>
+    </StyledForm>
   );
 };
 

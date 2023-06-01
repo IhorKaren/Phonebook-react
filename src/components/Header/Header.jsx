@@ -6,33 +6,7 @@ import Sheet from '@mui/joy/Sheet';
 import MenuIcon from '@mui/icons-material/Menu';
 import theme from 'components/Theme/Theme';
 import ColorSchemeToggle from '../ColorSchemeToggle';
-
-export const openSidebar = () => {
-  if (typeof document !== 'undefined') {
-    document.body.style.overflow = 'hidden';
-    document.documentElement.style.setProperty('--SideNavigation-slideIn', '1');
-  }
-};
-
-export const closeSidebar = () => {
-  if (typeof document !== 'undefined') {
-    document.documentElement.style.removeProperty('--SideNavigation-slideIn');
-    document.body.style.removeProperty('overflow');
-  }
-};
-
-const toggleSidebar = () => {
-  if (typeof window !== 'undefined' && typeof document !== 'undefined') {
-    const slideIn = window
-      .getComputedStyle(document.documentElement)
-      .getPropertyValue('--SideNavigation-slideIn');
-    if (slideIn) {
-      closeSidebar();
-    } else {
-      openSidebar();
-    }
-  }
-};
+import { toggleSidebar } from 'Services/sideBar';
 
 export default function Header() {
   return (
@@ -70,7 +44,6 @@ export default function Header() {
         >
           <MenuIcon />
         </IconButton>
-        {/* <MuiLogo variant="plain" sx={{ boxShadow: 'none', mr: 'auto' }} /> */}
         <ColorSchemeToggle sx={{ ml: '30px' }} />
       </Sheet>
     </CssVarsProvider>
