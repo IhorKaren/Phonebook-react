@@ -9,6 +9,8 @@ import Typography from '@mui/joy/Typography';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 import theme from 'components/Theme/Theme';
+import lightImage from '../../images/light.jpg';
+import darkImage from '../../images/dark.jpg';
 
 function ColorSchemeToggle({ onClick, ...props }) {
   const { mode, setMode } = useColorScheme();
@@ -171,11 +173,9 @@ export default function JoyLogInSideTemplate({ children }) {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
-          backgroundImage:
-            'url(https://images.unsplash.com/photo-1527181152855-fc03fc7949c8)',
+          backgroundImage: `url(${lightImage})`,
           [theme.getColorSchemeSelector('dark')]: {
-            backgroundImage:
-              'url(https://images.unsplash.com/photo-1572072393749-3ca9c8ea0831)',
+            backgroundImage: `url(${darkImage})`,
           },
         })}
       />
