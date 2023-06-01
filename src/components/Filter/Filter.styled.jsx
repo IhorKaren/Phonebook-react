@@ -7,7 +7,7 @@ const StyledForm = styled.form`
 `;
 
 const Thumb = styled.div`
-  width: 400px;
+  width: 500px;
 `;
 
 export { StyledForm, Thumb };

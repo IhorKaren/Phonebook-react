@@ -1,14 +1,14 @@
 import ContactItem from 'components/ContactsItem/ContactsItem';
-import { ContactsWrapper } from './Contacts.styled';
+import List from '@mui/joy/List';
 
 const Contacts = ({ options }) => {
   return (
     <>
-      <ContactsWrapper>
+      <List>
         {options.map(el => {
           return <ContactItem key={el.id} el={el} />;
         })}
-      </ContactsWrapper>
+      </List>
     </>
   );
 };

@@ -1,22 +1,29 @@
 import { useDeleteContactMutation } from 'Redux/Contacts/contactsApi';
-import { ContactItem, ContactName, ContactButton } from './ContactsItem.styled';
+import Avatar from '@mui/joy/Avatar';
+import ListItem from '@mui/joy/ListItem';
+import Typography from '@mui/joy/Typography';
+import Button from '@mui/joy/Button';
 
 const ContactsItem = ({ el }) => {
   const [deleteContact, result] = useDeleteContactMutation();
+  const firstLetter = [...el.name];
 
   return (
-    <ContactItem>
-      <ContactName>
+    <ListItem sx={{ maxWidth: '500px' }}>
+      <Avatar>{firstLetter[0]}</Avatar>
+      <Typography component="p" sx={{ ml: '8px' }}>
         {el.name}: {el.number}
-      </ContactName>
-      <ContactButton
+      </Typography>
+      <Button
+        color="danger"
         type="button"
         disabled={result.isLoading}
         onClick={() => deleteContact(el.id)}
+        sx={{ ml: 'auto' }}
       >
         Delete
-      </ContactButton>
-    </ContactItem>
+      </Button>
+    </ListItem>
   );
 };
 

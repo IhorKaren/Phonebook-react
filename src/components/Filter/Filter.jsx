@@ -17,7 +17,7 @@ const FilterForm = ({ onChange }) => {
   return (
     <StyledForm>
       <Thumb>
-        <FormLabel htmlFor="filter">Find contact by name:</FormLabel>
+        <FormLabel htmlFor="filter">Find contacts by name:</FormLabel>
         <Controller
           control={control}
           name="filter"
