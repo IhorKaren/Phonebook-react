@@ -1,3 +1,4 @@
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { CssVarsProvider } from '@mui/joy/styles';
 import GlobalStyle from 'components/GlobalStyles/GlobalStyles';
@@ -9,7 +10,7 @@ import {
 import { filter, getFilter } from 'Redux/Filter/filterSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// 
+//
 import Sidebar from 'components/SideBar/SideBar';
 import Header from 'components/Header/Header';
 import Main from 'components/Main/Main';
@@ -20,16 +21,14 @@ import { MainTitle } from 'components/Container/Container.styled';
 import theme from 'components/Theme/Theme';
 
 const Home = () => {
-  const { data } = useGetContactsQuery();
+  const { data = [] } = useGetContactsQuery();
   const [addContact] = useAddContactMutation();
 
   const contactsFilter = useSelector(getFilter);
   const dispatch = useDispatch();
 
-  const contacts = data ?? [];
-
   const addContacts = (name, number) => {
-    const checkName = contacts.some(
+    const checkName = data.some(
       el => el.name.toLowerCase() === name.toLowerCase()
     );
 
@@ -46,7 +45,7 @@ const Home = () => {
   };
 
   const getFilteredContacts = () => {
-    return contacts.filter(contact =>
+    return data.filter(contact =>
       contact.name.toLowerCase().includes(contactsFilter.toLowerCase())
     );
   };
@@ -72,7 +71,7 @@ const Home = () => {
             <FilterForm onChange={handleFilterChange} />
           </Box>
 
-          {contacts.length === 0 ? (
+          {data.length === 0 ? (
             <p>You don't have contacts yet</p>
           ) : (
             <Contacts options={filteredContacts} />
