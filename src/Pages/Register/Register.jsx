@@ -51,7 +51,12 @@ const RegisterForm = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Thumb>
           <FormLabel htmlFor="name">Name:</FormLabel>
-          <Input type="text" id="name" {...register('name')} />
+          <Input
+            type="text"
+            id="name"
+            {...register('name')}
+            error={Boolean(errors.name)}
+          />
           {errors.name && (
             <StyledText color="danger" fontSize="sm">
               {errors.name?.message}
@@ -60,7 +65,12 @@ const RegisterForm = () => {
         </Thumb>
         <Thumb>
           <FormLabel htmlFor="email">Email:</FormLabel>
-          <Input type="email" id="email" {...register('email')} />
+          <Input
+            type="email"
+            id="email"
+            {...register('email')}
+            error={Boolean(errors.email)}
+          />
           {errors.email && (
             <StyledText color="danger" fontSize="sm">
               {errors.email?.message}
@@ -69,7 +79,12 @@ const RegisterForm = () => {
         </Thumb>
         <Thumb>
           <FormLabel htmlFor="password">Password:</FormLabel>
-          <Input type="password" id="password" {...register('password')} />
+          <Input
+            type="password"
+            id="password"
+            {...register('password')}
+            error={Boolean(errors.password)}
+          />
           {errors.password && (
             <StyledText color="danger" fontSize="sm">
               {errors.password?.message}
