@@ -4,6 +4,7 @@ import Avatar from '@mui/joy/Avatar';
 import ListItem from '@mui/joy/ListItem';
 import Typography from '@mui/joy/Typography';
 import Button from '@mui/joy/Button';
+import Underline from './Underline';
 
 const ContactsItem = ({ el }) => {
   const [deleteContact, result] = useDeleteContactMutation();
@@ -29,6 +30,7 @@ const ContactsItem = ({ el }) => {
       >
         Delete
       </Button>
+      <Underline />
     </ListItem>
   );
 };

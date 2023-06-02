@@ -47,8 +47,6 @@ const Main = ({ children }) => {
             height: '100dvh',
             maxWidth: '100%',
             minWidth: 0,
-            mr: 'auto',
-            ml: '40px',
 
             px: {
               xs: 2,
