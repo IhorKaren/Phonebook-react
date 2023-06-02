@@ -4,10 +4,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { logIn } from 'Redux/Auth/operations';
-import { authError } from 'Redux/Selectors/selectors';
+import { isLoading, authError } from 'Redux/Selectors/selectors';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// 
+//
 import Button from '@mui/joy/Button';
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
@@ -19,15 +19,13 @@ import { Link as RouterLink } from 'react-router-dom';
 
 const schema = Yup.object().shape({
   email: Yup.string().required('Email is required!'),
-  password: Yup.string()
-    .required('Password is required!')
-    .min(5, 'Password must be at least 5 digits')
-    .max(16, 'Password must not exceed 16 digits'),
+  password: Yup.string().required('Password is required!'),
 });
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const loginError = useSelector(authError);
+  const loading = useSelector(isLoading);
 
   useEffect(() => {
     if (loginError) {
@@ -84,7 +82,12 @@ const LoginForm = () => {
             </StyledText>
           )}
         </Thumb>
-        <Button type="submit" sx={{ marginTop: '10px' }}>
+        <Button
+          type="submit"
+          loading={loading}
+          loadingPosition="end"
+          sx={{ marginTop: '10px' }}
+        >
           Login
         </Button>
         <Typography fontSize="md">

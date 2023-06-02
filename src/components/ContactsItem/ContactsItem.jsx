@@ -17,7 +17,7 @@ const ContactsItem = ({ el }) => {
       <Button
         color="danger"
         type="button"
-        disabled={result.isLoading}
+        loading={result.isLoading}
         onClick={() => deleteContact(el.id)}
         sx={{ ml: 'auto' }}
       >

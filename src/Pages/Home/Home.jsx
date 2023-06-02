@@ -1,7 +1,5 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { CssVarsProvider } from '@mui/joy/styles';
-import GlobalStyle from 'components/GlobalStyles/GlobalStyles';
 import Box from '@mui/joy/Box';
 import {
   useGetContactsQuery,
@@ -18,11 +16,10 @@ import FilterForm from 'components/Filter/Filter';
 import PhonebookForm from 'components/PhonebookForm/PhonebookForm';
 import Contacts from 'components/Contacts/Contacts';
 import { MainTitle } from 'components/Container/Container.styled';
-import theme from 'components/Theme/Theme';
 
 const Home = () => {
   const { data = [] } = useGetContactsQuery();
-  const [addContact] = useAddContactMutation();
+  const [addContact, result] = useAddContactMutation();
 
   const contactsFilter = useSelector(getFilter);
   const dispatch = useDispatch();
@@ -57,8 +54,7 @@ const Home = () => {
   const filteredContacts = getFilteredContacts();
 
   return (
-    <CssVarsProvider defaultMode="dark" disableTransitionOnChange theme={theme}>
-      <GlobalStyle />
+    <>
       <Box sx={{ display: 'flex', height: '100dvh' }}>
         <Sidebar />
         <Header />
@@ -67,7 +63,10 @@ const Home = () => {
           <Box
             sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end' }}
           >
-            <PhonebookForm addContact={addContacts} />
+            <PhonebookForm
+              addContact={addContacts}
+              isLoading={result.isLoading}
+            />
             <FilterForm onChange={handleFilterChange} />
           </Box>
 
@@ -79,7 +78,7 @@ const Home = () => {
         </Main>
       </Box>
       <ToastContainer theme="colored" />
-    </CssVarsProvider>
+    </>
   );
 };
 

@@ -5,7 +5,7 @@ import IconButton from '@mui/joy/IconButton';
 import Sheet from '@mui/joy/Sheet';
 import MenuIcon from '@mui/icons-material/Menu';
 import theme from 'components/Theme/Theme';
-import ColorSchemeToggle from '../ColorSchemeToggle';
+import ColorSchemeToggle from '../../Services/ColorSchemeToggle';
 import { toggleSidebar } from 'Services/sideBar';
 
 export default function Header() {

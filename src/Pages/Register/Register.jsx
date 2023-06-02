@@ -4,11 +4,11 @@ import { Link as RouterLink } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
-import { authError } from 'Redux/Selectors/selectors';
+import { isLoading, authError } from 'Redux/Selectors/selectors';
 import { registerUser } from '../../Redux/Auth/operations';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// 
+//
 import Button from '@mui/joy/Button';
 import FormLabel from '@mui/joy/FormLabel';
 import { Link } from '@mui/joy';
@@ -29,13 +29,14 @@ const schema = Yup.object().shape({
 const RegisterForm = () => {
   const dispatch = useDispatch();
 
-  const loginError = useSelector(authError);
+  const signInError = useSelector(authError);
+  const loading = useSelector(isLoading);
 
   useEffect(() => {
-    if (loginError) {
+    if (signInError) {
       toast.error(`Error, please try again.`);
     }
-  }, [loginError]);
+  }, [signInError]);
 
   const {
     register,
@@ -53,7 +54,6 @@ const RegisterForm = () => {
       password: data.password,
     };
 
-    console.log(newUser);
     dispatch(registerUser(newUser));
     reset();
   };
@@ -103,7 +103,12 @@ const RegisterForm = () => {
             </StyledText>
           )}
         </Thumb>
-        <Button type="submit" sx={{ marginTop: '10px' }}>
+        <Button
+          type="submit"
+          loading={loading}
+          loadingPosition="end"
+          sx={{ marginTop: '10px' }}
+        >
           Register
         </Button>
         <Typography fontSize="md">

@@ -16,7 +16,7 @@ const schema = Yup.object().shape({
     .max(16, 'Number must not exceed 16 digits'),
 });
 
-const PhonebookForm = ({ addContact }) => {
+const PhonebookForm = ({ addContact, isLoading }) => {
   const {
     register,
     handleSubmit,
@@ -61,7 +61,12 @@ const PhonebookForm = ({ addContact }) => {
           </StyledText>
         )}
       </div>
-      <Button type="submit" sx={{ height: '40px', mt: 'auto' }}>
+      <Button
+        type="submit"
+        loading={isLoading}
+        loadingPosition="end"
+        sx={{ height: '40px', mt: 'auto' }}
+      >
         <PersonAddAltIcon sx={{ mr: '5px' }} /> Add contact
       </Button>
     </StyledForm>

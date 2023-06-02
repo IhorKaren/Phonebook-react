@@ -1,23 +1,14 @@
-import { Oval } from 'react-loader-spinner';
+import CircularProgress from '@mui/joy/CircularProgress';
 
 export default function Loader() {
   return (
-    <Oval
-      height={100}
-      width={100}
-      color="RoyalBlue"
-      wrapperStyle={{
-        position: 'fixed',
+    <CircularProgress
+      sx={{
+        position: 'absolute',
         top: '50%',
         left: '50%',
-        transform: 'translate(-50%, -50%)',
+        transform: 'translate(-50% -50%)',
       }}
-      wrapperClass=""
-      visible={true}
-      ariaLabel="oval-loading"
-      secondaryColor="SkyBlue"
-      strokeWidth={2}
-      strokeWidthSecondary={2}
     />
   );
 }

@@ -15,7 +15,7 @@ import ListItemDecorator from '@mui/joy/ListItemDecorator';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
 import theme from 'components/Theme/Theme';
-import ColorSchemeToggle from 'components/ColorSchemeToggle';
+import ColorSchemeToggle from 'Services/ColorSchemeToggle';
 
 const Dropdown = styled('i')(({ theme }) => ({
   color: theme.vars.palette.text.tertiary,
