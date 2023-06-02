@@ -9,7 +9,9 @@ export default function Sidebar() {
   const dispatch = useDispatch();
   const currentUser = useSelector(user);
 
-  const hadleLogOutClick = () => dispatch(logOut());
+  const hadleLogOutClick = () => {
+    dispatch(logOut());
+  };
 
   return (
     <StyledSidebar

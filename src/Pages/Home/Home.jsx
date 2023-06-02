@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Box from '@mui/joy/Box';
 import {
@@ -18,11 +18,15 @@ import Contacts from 'components/Contacts/Contacts';
 import { MainTitle } from 'components/Container/Container.styled';
 
 const Home = () => {
-  const { data = [] } = useGetContactsQuery();
+  const { data = [], refetch } = useGetContactsQuery();
   const [addContact, result] = useAddContactMutation();
 
   const contactsFilter = useSelector(getFilter);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   const addContacts = (name, number) => {
     const checkName = data.some(

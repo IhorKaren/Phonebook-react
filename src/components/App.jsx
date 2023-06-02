@@ -5,7 +5,7 @@ import { refreshUser } from 'Redux/Auth/operations';
 import { isRefresh } from 'Redux/Selectors/selectors';
 import RestrictedRoute from './Routes/RestrictedRoute';
 import PrivateRoute from './Routes/PrivateRoute';
-
+// 
 import { CssVarsProvider } from '@mui/joy/styles';
 import GlobalStyle from 'components/GlobalStyles/GlobalStyles';
 import theme from 'components/Theme/Theme';
@@ -25,7 +25,11 @@ export function App() {
   }, [dispatch]);
 
   return (
-    <CssVarsProvider defaultMode="light" disableTransitionOnChange theme={theme}>
+    <CssVarsProvider
+      defaultMode="light"
+      disableTransitionOnChange
+      theme={theme}
+    >
       <GlobalStyle />
       <Suspense fallback={<Loader />}>
         {!isRefreshing && (
