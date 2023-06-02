@@ -1,4 +1,5 @@
 import { useDeleteContactMutation } from 'Redux/Contacts/contactsApi';
+import Box from '@mui/joy/Box';
 import Avatar from '@mui/joy/Avatar';
 import ListItem from '@mui/joy/ListItem';
 import Typography from '@mui/joy/Typography';
@@ -11,9 +12,14 @@ const ContactsItem = ({ el }) => {
   return (
     <ListItem sx={{ maxWidth: '500px' }}>
       <Avatar>{firstLetter[0]}</Avatar>
-      <Typography component="p" sx={{ ml: '8px' }}>
-        {el.name}: {el.number}
-      </Typography>
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Typography component="p" sx={{ ml: '8px' }}>
+          {el.name}
+        </Typography>
+        <Typography component="p" level="body2" sx={{ ml: '8px' }}>
+          Phone: {el.number}
+        </Typography>
+      </Box>
       <Button
         color="danger"
         type="button"
