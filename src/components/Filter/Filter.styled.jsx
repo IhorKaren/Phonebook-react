@@ -7,7 +7,11 @@ const StyledForm = styled.form`
 `;
 
 const Thumb = styled.div`
-  width: 500px;
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  width: 100%;
+  max-width: 500px;
 `;
 
 export { StyledForm, Thumb };

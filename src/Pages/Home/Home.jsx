@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Box from '@mui/joy/Box';
 import Typography from '@mui/joy/Typography';
@@ -21,12 +21,20 @@ const Home = () => {
   const { data = [], refetch } = useGetContactsQuery();
   const [addContact, result] = useAddContactMutation();
 
+  const [sortedData, setSortedData] = useState([]);
+  const [selectedSortBy, setSelectedSortBy] = useState('dateFromLast');
+
   const contactsFilter = useSelector(getFilter);
   const dispatch = useDispatch();
 
   useEffect(() => {
     refetch();
   }, [refetch]);
+
+  useEffect(() => {
+    setSortedData([...data]);
+    setSelectedSortBy('dateFromLast');
+  }, [data]);
 
   const addContacts = (name, number) => {
     const checkName = data.some(
@@ -46,13 +54,41 @@ const Home = () => {
   };
 
   const getFilteredContacts = () => {
-    return data.filter(contact =>
+    return sortedData.filter(contact =>
       contact.name.toLowerCase().includes(contactsFilter.toLowerCase())
     );
   };
 
   const handleFilterChange = e => {
     dispatch(filter(e.target.value));
+  };
+
+  const handleSortByChange = (e, newValue) => {
+    let newData;
+
+    switch (newValue) {
+      case 'dateFromFirst':
+        setSelectedSortBy('dateFromFirst');
+        newData = [...data].reverse();
+        break;
+
+      case 'byName':
+        newData = [...data].sort((a, b) => a.name.localeCompare(b.name));
+        setSelectedSortBy('byName');
+        break;
+
+      case 'byNameReverse':
+        newData = [...data].sort((a, b) => b.name.localeCompare(a.name));
+        setSelectedSortBy('byNameReverse');
+        break;
+
+      default:
+        setSelectedSortBy('dateFromLast');
+        newData = data;
+        break;
+    }
+
+    setSortedData([...newData]);
   };
 
   const filteredContacts = getFilteredContacts();
@@ -73,13 +109,17 @@ const Home = () => {
               addContact={addContacts}
               isLoading={result.isLoading}
             />
-            <FilterForm onChange={handleFilterChange} />
+            <FilterForm
+              onChange={handleFilterChange}
+              selectedValue={selectedSortBy}
+              selectChange={handleSortByChange}
+            />
           </Box>
 
           {data.length === 0 ? (
             <p>You don't have contacts yet</p>
           ) : (
-            <Contacts options={filteredContacts} />
+            <Contacts options={filteredContacts} sorted={sortedData} />
           )}
         </Main>
       </Box>
