@@ -49,11 +49,11 @@ const FilterForm = ({ onChange, selectedValue, selectChange }) => {
           >
             <Option value="dateFromLast">
               <ArrowDownwardIcon />
-              By oldest
+              Oldest
             </Option>
             <Option value="dateFromFirst">
               <ArrowDownwardIcon />
-              By newest
+              Newest
             </Option>
             <Option value="byName">
               <ArrowDownwardIcon />
