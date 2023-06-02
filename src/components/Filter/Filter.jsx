@@ -3,7 +3,6 @@ import { useForm, Controller, useWatch } from 'react-hook-form';
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 import SearchIcon from '@mui/icons-material/Search';
-import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import Select from '@mui/joy/Select';
 import Option from '@mui/joy/Option';
@@ -49,12 +48,12 @@ const FilterForm = ({ onChange, selectedValue, selectChange }) => {
             onChange={selectChange}
           >
             <Option value="dateFromLast">
-              <ArrowUpwardIcon />
-              Date added
+              <ArrowDownwardIcon />
+              By oldest
             </Option>
             <Option value="dateFromFirst">
               <ArrowDownwardIcon />
-              Date added
+              By newest
             </Option>
             <Option value="byName">
               <ArrowDownwardIcon />
