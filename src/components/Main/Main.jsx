@@ -58,9 +58,9 @@ const Main = ({ children }) => {
               md: 3,
             },
             pb: {
-              xs: 2,
-              sm: 2,
-              md: 3,
+              xs: 0,
+              sm: 1,
+              md: 1,
             },
             flex: 1,
             gap: 1,

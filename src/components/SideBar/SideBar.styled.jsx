@@ -42,6 +42,11 @@ export default function StyledSidebar({ name, email, onClose, onClick }) {
           top: 0,
           p: 1.5,
           py: 3,
+          pb: {
+            xs: 1,
+            sm: 1,
+            md: 1,
+          },
           flexShrink: 0,
           display: 'flex',
           flexDirection: 'column',
