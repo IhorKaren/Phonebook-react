@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Box from '@mui/joy/Box';
+import Typography from '@mui/joy/Typography';
 import {
   useGetContactsQuery,
   useAddContactMutation,
@@ -15,7 +16,6 @@ import Main from 'components/Main/Main';
 import FilterForm from 'components/Filter/Filter';
 import PhonebookForm from 'components/PhonebookForm/PhonebookForm';
 import Contacts from 'components/Contacts/Contacts';
-import { MainTitle } from 'components/Container/Container.styled';
 
 const Home = () => {
   const { data = [], refetch } = useGetContactsQuery();
@@ -63,7 +63,9 @@ const Home = () => {
         <Sidebar />
         <Header />
         <Main>
-          <MainTitle>Contacts</MainTitle>
+          <Typography component="h1" level="h1" sx={{ mb: '0' }}>
+            Contacts
+          </Typography>
           <Box
             sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end' }}
           >
