@@ -25,7 +25,7 @@ export function App() {
   }, [dispatch]);
 
   return (
-    <CssVarsProvider defaultMode="dark" disableTransitionOnChange theme={theme}>
+    <CssVarsProvider defaultMode="light" disableTransitionOnChange theme={theme}>
       <GlobalStyle />
       <Suspense fallback={<Loader />}>
         {!isRefreshing && (
