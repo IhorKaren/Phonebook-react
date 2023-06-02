@@ -7,7 +7,7 @@ const Underline = () => {
         position: 'absolute',
         bottom: '0',
         left: '5%',
-        borderBottom: '1px solid black',
+        borderBottom: '1px solid #4e4e4e',
         width: '90%',
         margin: '0 auto',
       }}
