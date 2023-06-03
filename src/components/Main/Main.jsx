@@ -14,8 +14,8 @@ const Main = ({ children }) => {
       <GlobalStyles
         styles={{
           ':root': {
-            '--Collapsed-breakpoint': '769px', // form will stretch when viewport is below `769px`
-            '--Cover-width': '50vw', // must be `vw` only
+            '--Collapsed-breakpoint': '1100px', // form will stretch when viewport is below `769px`
+            '--Cover-width': '53.5vw', // must be `vw` only
             '--Transition-duration': '0.4s', // set to `none` to disable transition
           },
         }}
