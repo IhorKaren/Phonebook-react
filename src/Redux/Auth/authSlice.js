@@ -21,7 +21,6 @@ const initialState = {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
   reducers: {
     clearError: state => {
       state.error = false;
