@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { isLoading, authError } from 'Redux/Selectors/selectors';
 import { registerUser } from '../../Redux/Auth/operations';
+import { clearError } from 'Redux/Auth/authSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 //
@@ -35,6 +36,7 @@ const RegisterForm = () => {
   useEffect(() => {
     if (signInError) {
       toast.error(`Error, please try again.`);
+       dispatch(clearError());
     }
   }, [signInError]);
 

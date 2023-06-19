@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { logIn } from 'Redux/Auth/operations';
+import { clearError } from 'Redux/Auth/authSlice';
 import { isLoading, authError } from 'Redux/Selectors/selectors';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -30,6 +31,7 @@ const LoginForm = () => {
   useEffect(() => {
     if (loginError) {
       toast.error(`Incorrect email or password`);
+      dispatch(clearError());
     }
   }, [loginError]);
 

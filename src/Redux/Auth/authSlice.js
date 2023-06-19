@@ -22,6 +22,11 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {},
+  reducers: {
+    clearError: state => {
+      state.error = false;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(registerUser.pending, state => {
@@ -70,5 +75,7 @@ const authSlice = createSlice({
       });
   },
 });
+
+export const { clearError } = authSlice.actions;
 
 export const authReducer = persistReducer(persistConfig, authSlice.reducer);
