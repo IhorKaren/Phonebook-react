@@ -36,9 +36,9 @@ const RegisterForm = () => {
   useEffect(() => {
     if (signInError) {
       toast.error(`Error, please try again.`);
-       dispatch(clearError());
+      dispatch(clearError());
     }
-  }, [signInError]);
+  }, [signInError, dispatch]);
 
   const {
     register,

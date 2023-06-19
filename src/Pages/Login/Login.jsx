@@ -33,7 +33,7 @@ const LoginForm = () => {
       toast.error(`Incorrect email or password`);
       dispatch(clearError());
     }
-  }, [loginError]);
+  }, [loginError, dispatch]);
 
   const {
     register,
