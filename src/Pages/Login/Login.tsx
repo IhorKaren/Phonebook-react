@@ -1,82 +1,67 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link as RouterLink } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { useForm } from 'react-hook-form';
-import { isLoading, authError } from 'Redux/Selectors/selectors';
-import { registerUser } from '../../Redux/Auth/operations';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { logIn } from 'Redux/Auth/operations';
 import { clearError } from 'Redux/Auth/authSlice';
+import { isLoading, authError } from 'Redux/Selectors/selectors';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { AppDispatch } from 'Redux/store';
 //
 import Button from '@mui/joy/Button';
 import FormLabel from '@mui/joy/FormLabel';
-import { Link } from '@mui/joy';
 import Input from '@mui/joy/Input';
 import Typography from '@mui/joy/Typography';
-import JoySignInSideTemplate from 'components/JoySignInSideTemplate/JoySignInSideTemplate';
-import { Thumb, StyledText } from './Register.styled';
+import { Link } from '@mui/joy';
+import { Thumb, StyledText } from './Login.styled';
+import JoyLogInSideTemplate from 'components/JoyLogInSideTemplate/JoyLogInSideTemplate';
+import { Link as RouterLink } from 'react-router-dom';
+
+type FormValues = {
+  email: string;
+  password: string;
+};
 
 const schema = Yup.object().shape({
-  name: Yup.string().required('Name is required!'),
   email: Yup.string().required('Email is required!'),
-  password: Yup.string()
-    .required('Password is required!')
-    .min(5, 'Password must be at least 5 digits')
-    .max(12, 'Password must not exceed 12 digits'),
+  password: Yup.string().required('Password is required!'),
 });
 
-const RegisterForm = () => {
-  const dispatch = useDispatch();
-
-  const signInError = useSelector(authError);
+const LoginForm = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const loginError = useSelector(authError);
   const loading = useSelector(isLoading);
 
   useEffect(() => {
-    if (signInError) {
-      toast.error(`Error, please try again.`);
+    if (loginError) {
+      toast.error(`Incorrect email or password`);
       dispatch(clearError());
     }
-  }, [signInError, dispatch]);
+  }, [loginError, dispatch]);
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({
+  } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data, e) => {
-    const newUser = {
-      name: data.name,
+  const onSubmit: SubmitHandler<FormValues> = data => {
+    const user = {
       email: data.email,
       password: data.password,
     };
-
-    dispatch(registerUser(newUser));
+    dispatch(logIn(user));
     reset();
   };
 
   return (
-    <JoySignInSideTemplate>
+    <JoyLogInSideTemplate>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Thumb>
-          <FormLabel htmlFor="name">Name:</FormLabel>
-          <Input
-            type="text"
-            id="name"
-            {...register('name')}
-            error={Boolean(errors.name)}
-          />
-          {errors.name && (
-            <StyledText color="danger" fontSize="sm">
-              {errors.name?.message}
-            </StyledText>
-          )}
-        </Thumb>
         <Thumb>
           <FormLabel htmlFor="email">Email:</FormLabel>
           <Input
@@ -111,18 +96,22 @@ const RegisterForm = () => {
           loadingPosition="end"
           sx={{ marginTop: '10px' }}
         >
-          Register
+          Login
         </Button>
         <Typography fontSize="md">
-          Are you already registered?
-          <Link component={RouterLink} to="/login" sx={{ marginLeft: '5px' }}>
-            Go to login page.
+          New to Phonebook?
+          <Link
+            component={RouterLink}
+            to="/register"
+            sx={{ marginLeft: '5px' }}
+          >
+            Sign up now.
           </Link>
         </Typography>
       </form>
       <ToastContainer theme="colored" position="top-left" />
-    </JoySignInSideTemplate>
+    </JoyLogInSideTemplate>
   );
 };
 
-export default RegisterForm;
+export default LoginForm;

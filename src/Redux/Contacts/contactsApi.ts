@@ -1,11 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { RootState } from 'Redux/store';
+import { Contact } from 'components/App.types';
 
 export const contactsApi = createApi({
   reducerPath: 'contactsApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://connections-api.herokuapp.com/',
     prepareHeaders: (headers, { getState }) => {
-      const token = getState().auth.token;
+      const token = (getState() as RootState).auth.token
 
       // If we have a token set in state, let's assume that we should be passing it.
       if (token) {
@@ -17,7 +19,7 @@ export const contactsApi = createApi({
   }),
   tagTypes: ['Contact'],
   endpoints: builder => ({
-    getContacts: builder.query({
+    getContacts: builder.query<Contact[], void>({
       query: () => `contacts`,
       providesTags: ['Contact'],
     }),

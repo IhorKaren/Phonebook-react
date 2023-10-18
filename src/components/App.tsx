@@ -5,7 +5,8 @@ import { refreshUser } from 'Redux/Auth/operations';
 import { isRefresh } from 'Redux/Selectors/selectors';
 import RestrictedRoute from './Routes/RestrictedRoute';
 import PrivateRoute from './Routes/PrivateRoute';
-// 
+import { AppDispatch } from 'Redux/store';
+//
 import { CssVarsProvider } from '@mui/joy/styles';
 import GlobalStyle from 'components/GlobalStyles/GlobalStyles';
 import theme from 'components/Theme/Theme';
@@ -16,7 +17,7 @@ const LoginForm = lazy(() => import('../Pages/Login/Login'));
 const RegisterForm = lazy(() => import('../Pages/Register/Register'));
 
 export function App() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const isRefreshing = useSelector(isRefresh);
 

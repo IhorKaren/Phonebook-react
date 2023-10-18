@@ -3,15 +3,17 @@ import persistReducer from 'redux-persist/es/persistReducer';
 import storage from 'redux-persist/lib/storage';
 import { registerUser, logIn, refreshUser, logOut } from './operations';
 
+import { State } from 'components/App.types';
+
 const persistConfig = {
   key: 'contacts',
   storage,
   whitelist: ['token'],
 };
 
-const initialState = {
-  user: { name: null, email: null },
-  token: null,
+const initialState: State = {
+  user: { name: '', email: '' },
+  token: '',
   error: false,
   isLoading: false,
   isLoggedIn: false,
@@ -31,9 +33,9 @@ const authSlice = createSlice({
       .addCase(registerUser.pending, state => {
         state.isLoading = true;
       })
-      .addCase(registerUser.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
+      .addCase(registerUser.fulfilled, (state, { payload }) => {
+        state.user = payload;
+        state.token = payload.token;
         state.isLoggedIn = true;
         state.isLoading = false;
         state.error = false;
@@ -45,9 +47,9 @@ const authSlice = createSlice({
       .addCase(logIn.pending, state => {
         state.isLoading = true;
       })
-      .addCase(logIn.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.token = action.payload.token;
+      .addCase(logIn.fulfilled, (state, { payload }) => {
+        state.user = { name: payload.name, email: payload.email };
+        state.token = payload.token;
         state.isLoggedIn = true;
         state.isLoading = false;
         state.error = false;
@@ -57,15 +59,15 @@ const authSlice = createSlice({
         state.error = true;
       })
       .addCase(logOut.fulfilled, state => {
-        state.user = { name: null, email: null };
-        state.token = null;
+        state.user = { name: '', email: '' };
+        state.token = '';
         state.isLoggedIn = false;
       })
       .addCase(refreshUser.pending, state => {
         state.isRefreshing = true;
       })
-      .addCase(refreshUser.fulfilled, (state, action) => {
-        state.user = action.payload;
+      .addCase(refreshUser.fulfilled, (state, { payload }) => {
+        state.user = payload;
         state.isLoggedIn = true;
         state.isRefreshing = false;
       })

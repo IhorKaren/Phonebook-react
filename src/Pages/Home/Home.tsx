@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, ChangeEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Box from '@mui/joy/Box';
 import Typography from '@mui/joy/Typography';
@@ -9,6 +9,7 @@ import {
 import { filter, getFilter } from 'Redux/Filter/filterSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Contact } from 'components/App.types';
 //
 import Sidebar from 'components/SideBar/SideBar';
 import Header from 'components/Header/Header';
@@ -21,7 +22,7 @@ const Home = () => {
   const { data = [], refetch } = useGetContactsQuery();
   const [addContact, result] = useAddContactMutation();
 
-  const [sortedData, setSortedData] = useState([]);
+  const [sortedData, setSortedData] = useState<Contact[]>([]);
   const [selectedSortBy, setSelectedSortBy] = useState('dateFromLast');
 
   const contactsFilter = useSelector(getFilter);
@@ -36,7 +37,7 @@ const Home = () => {
     setSelectedSortBy('dateFromLast');
   }, [data]);
 
-  const addContacts = (name, number) => {
+  const addContacts = (name: string, number: string) => {
     const checkName = data.some(
       el => el.name.toLowerCase() === name.toLowerCase()
     );
@@ -59,12 +60,12 @@ const Home = () => {
     );
   };
 
-  const handleFilterChange = e => {
+  const handleFilterChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(filter(e.target.value));
   };
 
-  const handleSortByChange = (e, newValue) => {
-    let newData;
+  const handleSortByChange = (newValue: string) => {
+    let newData: Contact[];
 
     switch (newValue) {
       case 'dateFromFirst':
@@ -119,7 +120,7 @@ const Home = () => {
           {data.length === 0 ? (
             <p>You don't have contacts yet</p>
           ) : (
-            <Contacts options={filteredContacts} sorted={sortedData} />
+            <Contacts options={filteredContacts} />
           )}
         </Main>
       </Box>

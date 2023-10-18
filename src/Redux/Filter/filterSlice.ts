@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { RootState } from 'Redux/store';
 
 const filtersInitialState = {
   value: '',
@@ -16,4 +17,4 @@ export const filterSlice = createSlice({
 
 export const { filter } = filterSlice.actions;
 export const filterReducer = filterSlice.reducer;
-export const getFilter = state => state.filter.value;
+export const getFilter = (state: RootState) => state.filter.value;
