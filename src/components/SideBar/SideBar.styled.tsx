@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { styled } from '@mui/joy/styles';
 import { CssVarsProvider } from '@mui/joy/styles';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -17,11 +18,18 @@ import Sheet from '@mui/joy/Sheet';
 import theme from 'components/Theme/Theme';
 import ColorSchemeToggle from 'Services/ColorSchemeToggle';
 
+type SidebarProps = {
+  name: string;
+  email: string;
+  onClose: () => void;
+  onClick: () => void;
+};
+
 const Dropdown = styled('i')(({ theme }) => ({
   color: theme.vars.palette.text.tertiary,
 }));
 
-export default function StyledSidebar({ name, email, onClose, onClick }) {
+const StyledSidebar: FC<SidebarProps> = ({ name, email, onClose, onClick }) => {
   return (
     <CssVarsProvider defaultMode="dark" disableTransitionOnChange theme={theme}>
       <Sheet
@@ -111,7 +119,7 @@ export default function StyledSidebar({ name, email, onClose, onClick }) {
                 <ListItemDecorator>
                   <HomeIcon />
                 </ListItemDecorator>
-                <ListItemContent to="/">Home</ListItemContent>
+                <ListItemContent>Home</ListItemContent>
                 <Dropdown data-feather="chevron-down" />
               </ListItemButton>
             </ListItem>
@@ -133,4 +141,6 @@ export default function StyledSidebar({ name, email, onClose, onClick }) {
       </Sheet>
     </CssVarsProvider>
   );
-}
+};
+
+export default StyledSidebar;

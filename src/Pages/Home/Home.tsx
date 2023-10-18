@@ -1,4 +1,4 @@
-import { useEffect, useState, ChangeEvent } from 'react';
+import { useEffect, MouseEvent, useState, ChangeEvent } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Box from '@mui/joy/Box';
 import Typography from '@mui/joy/Typography';
@@ -9,7 +9,7 @@ import {
 import { filter, getFilter } from 'Redux/Filter/filterSlice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Contact } from 'components/App.types';
+import { Contact, NewContact } from 'components/App.types';
 //
 import Sidebar from 'components/SideBar/SideBar';
 import Header from 'components/Header/Header';
@@ -18,14 +18,21 @@ import FilterForm from 'components/Filter/Filter';
 import PhonebookForm from 'components/PhonebookForm/PhonebookForm';
 import Contacts from 'components/Contacts/Contacts';
 
+export enum Filter {
+  dateLast = 'dateLast',
+  dateFirst = 'dateFirst',
+  byName = 'byName',
+  byNameReverse = 'byNameReverse',
+}
+
 const Home = () => {
   const { data = [], refetch } = useGetContactsQuery();
   const [addContact, result] = useAddContactMutation();
 
   const [sortedData, setSortedData] = useState<Contact[]>([]);
-  const [selectedSortBy, setSelectedSortBy] = useState('dateFromLast');
+  const [selectedSortBy, setSelectedSortBy] = useState<Filter>(Filter.dateLast);
 
-  const contactsFilter = useSelector(getFilter);
+  const contactsFilter: string = useSelector(getFilter);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,11 +41,11 @@ const Home = () => {
 
   useEffect(() => {
     setSortedData([...data]);
-    setSelectedSortBy('dateFromLast');
+    setSelectedSortBy(Filter.dateLast);
   }, [data]);
 
   const addContacts = (name: string, number: string) => {
-    const checkName = data.some(
+    const checkName: boolean = data.some(
       el => el.name.toLowerCase() === name.toLowerCase()
     );
 
@@ -46,15 +53,15 @@ const Home = () => {
       return toast.error(`${name} is already in contacts.`);
     }
 
-    const newContact = {
-      name: name,
-      number: number,
+    const newContact: NewContact = {
+      name,
+      number,
     };
 
     addContact(newContact);
   };
 
-  const getFilteredContacts = () => {
+  const getFilteredContacts = (): Contact[] => {
     return sortedData.filter(contact =>
       contact.name.toLowerCase().includes(contactsFilter.toLowerCase())
     );
@@ -64,27 +71,30 @@ const Home = () => {
     dispatch(filter(e.target.value));
   };
 
-  const handleSortByChange = (newValue: string) => {
+  const handleSortByChange = (
+    e: MouseEvent<HTMLSelectElement>,
+    newValue: string
+  ) => {
     let newData: Contact[];
 
     switch (newValue) {
-      case 'dateFromFirst':
-        setSelectedSortBy('dateFromFirst');
+      case Filter.dateFirst:
+        setSelectedSortBy(Filter.dateFirst);
         newData = [...data].reverse();
         break;
 
-      case 'byName':
+      case Filter.byName:
         newData = [...data].sort((a, b) => a.name.localeCompare(b.name));
-        setSelectedSortBy('byName');
+        setSelectedSortBy(Filter.byName);
         break;
 
-      case 'byNameReverse':
+      case Filter.byNameReverse:
         newData = [...data].sort((a, b) => b.name.localeCompare(a.name));
-        setSelectedSortBy('byNameReverse');
+        setSelectedSortBy(Filter.byNameReverse);
         break;
 
       default:
-        setSelectedSortBy('dateFromLast');
+        setSelectedSortBy(Filter.dateLast);
         newData = data;
         break;
     }
@@ -92,7 +102,7 @@ const Home = () => {
     setSortedData([...newData]);
   };
 
-  const filteredContacts = getFilteredContacts();
+  const filteredContacts: Contact[] = getFilteredContacts();
 
   return (
     <>
@@ -111,7 +121,7 @@ const Home = () => {
               isLoading={result.isLoading}
             />
             <FilterForm
-              onChange={handleFilterChange}
+              onFilterChange={handleFilterChange}
               selectedValue={selectedSortBy}
               selectChange={handleSortByChange}
             />
@@ -120,7 +130,7 @@ const Home = () => {
           {data.length === 0 ? (
             <p>You don't have contacts yet</p>
           ) : (
-            <Contacts options={filteredContacts} />
+            <Contacts array={filteredContacts} />
           )}
         </Main>
       </Box>

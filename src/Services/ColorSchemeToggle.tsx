@@ -2,9 +2,13 @@ import * as React from 'react';
 import { useColorScheme } from '@mui/joy/styles';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
-import IconButton from '@mui/joy/IconButton';
+import IconButton, { IconButtonProps } from '@mui/joy/IconButton';
 
-export default function ColorSchemeToggle({ onClick, sx, ...props }) {
+export default function ColorSchemeToggle({
+  onClick,
+  sx,
+  ...props
+}: IconButtonProps) {
   const { mode, setMode } = useColorScheme();
   const [mounted, setMounted] = React.useState(false);
   React.useEffect(() => {

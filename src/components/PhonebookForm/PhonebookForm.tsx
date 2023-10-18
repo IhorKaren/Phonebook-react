@@ -1,12 +1,22 @@
-import React from 'react';
+import { FC } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 import Button from '@mui/joy/Button';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import { StyledText, StyledForm } from './PhonebookFrom.styled';
+
+type FormValues = {
+  name: string;
+  number: string;
+};
+
+type FormProps = {
+  isLoading: boolean;
+  addContact: (name: string, number: string) => void;
+};
 
 const schema = Yup.object().shape({
   name: Yup.string().required('Name is required!'),
@@ -16,17 +26,17 @@ const schema = Yup.object().shape({
     .max(16, 'Number must not exceed 16 digits'),
 });
 
-const PhonebookForm = ({ addContact, isLoading }) => {
+const PhonebookForm: FC<FormProps> = ({ addContact, isLoading }) => {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({
+  } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data, e) => {
+  const onSubmit: SubmitHandler<FormValues> = data => {
     addContact(data.name, data.number);
     reset();
   };
@@ -39,7 +49,7 @@ const PhonebookForm = ({ addContact, isLoading }) => {
           type="text"
           id="name"
           {...register('name')}
-          error={errors.name}
+          error={Boolean(errors.name)}
         />
         {errors.name && (
           <StyledText color="danger" fontSize="sm">
@@ -47,13 +57,13 @@ const PhonebookForm = ({ addContact, isLoading }) => {
           </StyledText>
         )}
       </div>
-      <div sx={{ display: 'flex' }}>
+      <div>
         <FormLabel htmlFor="number">Number:</FormLabel>
         <Input
           type="tel"
           id="number"
           {...register('number')}
-          error={errors.number}
+          error={Boolean(errors.name)}
         />
         {errors.number && (
           <StyledText color="danger" fontSize="sm">

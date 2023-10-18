@@ -31,8 +31,8 @@ const schema = Yup.object().shape({
 
 const LoginForm = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const loginError = useSelector(authError);
-  const loading = useSelector(isLoading);
+  const loginError: boolean = useSelector(authError);
+  const loading: boolean = useSelector(isLoading);
 
   useEffect(() => {
     if (loginError) {

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { ReactNode, FC } from 'react';
 import { CssVarsProvider } from '@mui/joy/styles';
 import GlobalStyles from '@mui/joy/GlobalStyles';
 import CssBaseline from '@mui/joy/CssBaseline';
@@ -7,7 +7,11 @@ import theme from 'components/Theme/Theme';
 import lightImage from '../../images/light.jpg';
 import darkImage from '../../images/dark.jpg';
 
-const Main = ({ children }) => {
+type MainProps = {
+  children: ReactNode;
+};
+
+const Main: FC<MainProps> = ({ children }) => {
   return (
     <CssVarsProvider defaultMode="dark" disableTransitionOnChange theme={theme}>
       <CssBaseline />

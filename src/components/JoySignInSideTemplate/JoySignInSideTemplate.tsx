@@ -1,9 +1,9 @@
-import * as React from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 import { CssVarsProvider, useColorScheme } from '@mui/joy/styles';
 import GlobalStyles from '@mui/joy/GlobalStyles';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Box from '@mui/joy/Box';
-import IconButton from '@mui/joy/IconButton';
+import IconButton, { IconButtonProps } from '@mui/joy/IconButton';
 import { formLabelClasses } from '@mui/joy/FormLabel';
 import Typography from '@mui/joy/Typography';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
@@ -12,10 +12,11 @@ import theme from 'components/Theme/Theme';
 import lightImage from '../../images/light2.jpg';
 import darkImage from '../../images/dark2.jpg';
 
-function ColorSchemeToggle({ onClick, ...props }) {
+function ColorSchemeToggle({ onClick, ...props }: IconButtonProps) {
   const { mode, setMode } = useColorScheme();
-  const [mounted, setMounted] = React.useState(false);
-  React.useEffect(() => {
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
     setMounted(true);
   }, []);
   if (!mounted) {
@@ -45,7 +46,11 @@ function ColorSchemeToggle({ onClick, ...props }) {
 /**
  * This template uses [`Inter`](https://fonts.google.com/specimen/Inter?query=inter) font.
  */
-export default function JoySignInSideTemplate({ children }) {
+type SignInSideProps = {
+  children: ReactNode;
+};
+
+export default function JoySignInSideTemplate({ children }: SignInSideProps) {
   return (
     <CssVarsProvider defaultMode="dark" disableTransitionOnChange theme={theme}>
       <CssBaseline />

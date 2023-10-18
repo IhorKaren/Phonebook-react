@@ -19,3 +19,5 @@ export type Contact = {
   name: string;
   number: string;
 };
+
+export type NewContact = Omit<Contact, 'id'>;

@@ -19,7 +19,7 @@ const RegisterForm = lazy(() => import('../Pages/Register/Register'));
 export function App() {
   const dispatch = useDispatch<AppDispatch>();
 
-  const isRefreshing = useSelector(isRefresh);
+  const isRefreshing: boolean = useSelector(isRefresh);
 
   useEffect(() => {
     dispatch(refreshUser());

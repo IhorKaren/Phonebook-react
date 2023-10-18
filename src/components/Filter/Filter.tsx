@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { useForm, Controller, useWatch } from 'react-hook-form';
+import { FC, ChangeEvent } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 import SearchIcon from '@mui/icons-material/Search';
@@ -7,17 +7,26 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import Select from '@mui/joy/Select';
 import Option from '@mui/joy/Option';
 import { StyledForm, Thumb } from './Filter.styled';
-
 import Box from '@mui/joy/Box';
 
-const FilterForm = ({ onChange, selectedValue, selectChange }) => {
-  const { control } = useForm();
+import { Filter } from 'Pages/Home/Home';
 
-  const filterValue = useWatch({
-    control,
-    name: 'filter',
-    defaultValue: '',
-  });
+type FormValues = {
+  filter: string;
+};
+
+type FilterFormProps = {
+  onFilterChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  selectChange: (e: any, newValue: any) => void;
+  selectedValue: string;
+};
+
+const FilterForm: FC<FilterFormProps> = ({
+  onFilterChange,
+  selectedValue,
+  selectChange,
+}) => {
+  const { control } = useForm<FormValues>();
 
   return (
     <StyledForm>
@@ -27,14 +36,15 @@ const FilterForm = ({ onChange, selectedValue, selectChange }) => {
           <Controller
             control={control}
             name="filter"
-            value={filterValue}
             render={({ field }) => (
               <Input
                 startDecorator={<SearchIcon />}
                 type="text"
                 id="filter"
                 value={field.value}
-                onChange={onChange}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  onFilterChange(e)
+                }
               />
             )}
           />
@@ -47,19 +57,19 @@ const FilterForm = ({ onChange, selectedValue, selectChange }) => {
             placeholder="Sort by..."
             onChange={selectChange}
           >
-            <Option value="dateFromLast">
+            <Option value={Filter.dateLast}>
               <ArrowDownwardIcon />
               Oldest
             </Option>
-            <Option value="dateFromFirst">
+            <Option value={Filter.dateFirst}>
               <ArrowDownwardIcon />
               Newest
             </Option>
-            <Option value="byName">
+            <Option value={Filter.byName}>
               <ArrowDownwardIcon />
               Name a-z
             </Option>
-            <Option value="byNameReverse">
+            <Option value={Filter.byNameReverse}>
               <ArrowDownwardIcon />
               Name z-a
             </Option>

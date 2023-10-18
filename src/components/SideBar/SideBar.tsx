@@ -1,12 +1,12 @@
-import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { logOut } from 'Redux/Auth/operations';
 import { user } from 'Redux/Selectors/selectors';
 import StyledSidebar from './SideBar.styled';
 import { closeSidebar } from 'Services/sideBar';
+import { AppDispatch } from 'Redux/store';
 
-export default function Sidebar() {
-  const dispatch = useDispatch();
+const Sidebar = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const currentUser = useSelector(user);
 
   const hadleLogOutClick = () => {
@@ -21,4 +21,6 @@ export default function Sidebar() {
       onClick={hadleLogOutClick}
     />
   );
-}
+};
+
+export default Sidebar;

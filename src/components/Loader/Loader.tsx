@@ -1,6 +1,6 @@
 import CircularProgress from '@mui/joy/CircularProgress';
 
-export default function Loader() {
+const Loader = () => {
   return (
     <CircularProgress
       sx={{
@@ -11,4 +11,6 @@ export default function Loader() {
       }}
     />
   );
-}
+};
+
+export default Loader;
